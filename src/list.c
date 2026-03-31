@@ -56,6 +56,11 @@ double volatility(int n,TLinkedList *head,double rand_med)
     return sqrt(vol/(n-1));
 }
 
+double sharpe_ratio(double rand_med,double rand_risk,double vol)
+{
+    return (rand_med-rand_risk)/vol;
+}
+
 void free_mem(TLinkedList *head)
 {
     while(head!=NULL)

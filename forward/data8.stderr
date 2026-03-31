@@ -1,5 +1,0 @@
-==70503==  If you believe this happened as a result of a stack
-==70503==  overflow in your program's main thread (unlikely but
-==70503==  possible), you can try to increase the size of the
-==70503==  main thread stack using the --main-stacksize= flag.
-==70503==  The main thread stack size used in this run was 8388608.
