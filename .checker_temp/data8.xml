@@ -12,8 +12,8 @@
   <line>Command: /home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test /home/cosmincg/Desktop/temaPA/project-data/gigiquant/in/data8.in /home/cosmincg/Desktop/temaPA/project-data/gigiquant/out/data8.out</line>
 </preamble>
 
-<pid>61212</pid>
-<ppid>61175</ppid>
+<pid>70503</pid>
+<ppid>70487</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -32,7 +32,7 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.090 </time>
+  <time>00:00:00:00.130 </time>
 </status>
 
 <error>
@@ -42,12 +42,12 @@
   <what>Conditional jump or move depends on uninitialised value(s)</what>
   <stack>
     <frame>
-      <ip>0x10947B</ip>
+      <ip>0x109552</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>create_list</fn>
     </frame>
     <frame>
-      <ip>0x1092E0</ip>
+      <ip>0x109300</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
@@ -57,138 +57,51 @@
 <error>
   <unique>0x1</unique>
   <tid>1</tid>
-  <kind>UninitCondition</kind>
-  <what>Conditional jump or move depends on uninitialised value(s)</what>
+  <kind>InvalidRead</kind>
+  <what>Invalid read of size 8</what>
   <stack>
     <frame>
-      <ip>0x48D8181</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__printf_fp_buffer_1.isra.0</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>printf_fp.c</file>
-      <line>230</line>
+      <ip>0x10959C</ip>
+      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
+      <fn>volatility</fn>
     </frame>
     <frame>
-      <ip>0x48DA35B</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__printf_fp_l_buffer</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>printf_fp.c</file>
-      <line>1122</line>
-    </frame>
-    <frame>
-      <ip>0x48E16C4</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__printf_fp_spec</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>vfprintf-internal.c</file>
-      <line>266</line>
-    </frame>
-    <frame>
-      <ip>0x48E16C4</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__printf_buffer</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>vfprintf-internal.c</file>
-      <line>999</line>
-    </frame>
-    <frame>
-      <ip>0x48E273A</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__vfprintf_internal</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>vfprintf-internal.c</file>
-      <line>1544</line>
-    </frame>
-    <frame>
-      <ip>0x48D65FB</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>fprintf</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>fprintf.c</file>
-      <line>32</line>
-    </frame>
-    <frame>
-      <ip>0x109308</ip>
+      <ip>0x10931E</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
   </stack>
+  <auxwhat>Address 0x10 is not stack'd, malloc'd or (recently) free'd</auxwhat>
 </error>
 
-<error>
-  <unique>0x2</unique>
+<fatal_signal>
   <tid>1</tid>
-  <kind>UninitCondition</kind>
-  <what>Conditional jump or move depends on uninitialised value(s)</what>
+  <signo>11</signo>
+  <signame>SIGSEGV</signame>
+  <sicode>1</sicode>
+  <event>Access not within mapped region</event>
+  <siaddr>0x10</siaddr>
   <stack>
     <frame>
-      <ip>0x48D807C</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__printf_fp_buffer_1.isra.0</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>printf_fp.c</file>
-      <line>238</line>
+      <ip>0x10959C</ip>
+      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
+      <fn>volatility</fn>
     </frame>
     <frame>
-      <ip>0x48DA35B</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__printf_fp_l_buffer</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>printf_fp.c</file>
-      <line>1122</line>
-    </frame>
-    <frame>
-      <ip>0x48E16C4</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__printf_fp_spec</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>vfprintf-internal.c</file>
-      <line>266</line>
-    </frame>
-    <frame>
-      <ip>0x48E16C4</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__printf_buffer</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>vfprintf-internal.c</file>
-      <line>999</line>
-    </frame>
-    <frame>
-      <ip>0x48E273A</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>__vfprintf_internal</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>vfprintf-internal.c</file>
-      <line>1544</line>
-    </frame>
-    <frame>
-      <ip>0x48D65FB</ip>
-      <obj>/usr/lib/x86_64-linux-gnu/libc.so.6</obj>
-      <fn>fprintf</fn>
-      <dir>./stdio-common/./stdio-common</dir>
-      <file>fprintf.c</file>
-      <line>32</line>
-    </frame>
-    <frame>
-      <ip>0x109308</ip>
+      <ip>0x10931E</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
   </stack>
-</error>
+</fatal_signal>
 
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:00.651 </time>
+  <time>00:00:00:01.276 </time>
 </status>
 
 <errorcounts>
-  <pair>
-    <count>1</count>
-    <unique>0x2</unique>
-  </pair>
   <pair>
     <count>1</count>
     <unique>0x1</unique>

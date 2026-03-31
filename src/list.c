@@ -29,17 +29,31 @@ TLinkedList *create_list(int n,double *rand_med,FILE *filein)
         }
         else
         {
-            iter->next = newNode;
 
             newNode->rand = (newNode->value-iter->value) / iter->value;
             (*rand_med) += newNode->rand;
 
+            iter->next = newNode;
             iter = newNode;
         }
     }
 
-    *rand_med /= n;
+    *rand_med /= n-1;
     return head;
+}
+
+double volatility(int n,TLinkedList *head,double rand_med)
+{
+    head=head->next;
+    double vol=0.0;
+
+    while(head!=NULL)
+    {
+        vol += (head->rand-rand_med)*(head->rand-rand_med);
+        head=head->next;
+    }
+    
+    return sqrt(vol/(n-1));
 }
 
 void free_mem(TLinkedList *head)
