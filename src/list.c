@@ -21,7 +21,7 @@ TLinkedList *create_list(int n,double *rand_med,FILE *filein)
 
         fscanf(filein,"%lf",&newNode->value);
         newNode->next = NULL;
-        printf("%lf\n",newNode->value);
+        
         if ( head == NULL )
         {
             newNode->rand = 0;
@@ -71,7 +71,7 @@ double sharpe_ratio(double rand_med,double rand_risk,double vol)
 }
 
 // Functie pentru a elibera memoria
-void free_mem(TLinkedList *head)
+void free_memory_list(TLinkedList *head)
 {
     while(head != NULL)
     {

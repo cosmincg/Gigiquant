@@ -1,5 +1,6 @@
 #include "list.h"
 #include "numberfile.h"
+#include "stack.h"
 
 int main(int argc,const char *argv[])
 {
@@ -47,9 +48,48 @@ int main(int argc,const char *argv[])
             fprintf(fileout,"%.3f\n",sharpe);
 
             //  Eliberam memoria
-            free_mem(head);
+            free_memory_list(head);
     }
+    else
+        if(numberfile<=10)
+        {
+            int *day=malloc(3*sizeof(int));
+            char **name=malloc(3*sizeof(char*));
+            if(day==NULL||name==NULL)
+            {
+                perror("Memory allocation failed.\n");
+                exit(EXIT_FAILURE);
+            }
 
+            for(int i=0;i<3;i++)
+            {
+                day[i]=0;
+                name[i]=malloc(15*sizeof(char));
+
+                if(name[i]==NULL)
+                {
+                    perror("Memory allocation failed.\n");
+                    exit(EXIT_FAILURE);
+                }
+            }
+
+
+            stack **head;
+
+            head=create_stack(day,name,filein);
+
+            list_stack(head[1]);
+
+            //  Eliberarea memoriei
+            for(int i=0;i<3;i++)
+            {
+                free_memory_stack(head[i]);
+                free(name[i]);
+            }
+            free(day);
+            free(name);
+            free(head);
+        }
     //  Inchidem fisierele
     fclose(filein);
     fclose(fileout);
