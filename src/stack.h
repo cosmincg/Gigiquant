@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
 typedef struct node
 {
@@ -9,6 +10,7 @@ typedef struct node
     struct node *next;
 }stack;
 
-stack **create_stack(int *day,char **name,FILE *filein);
+stack **create_stack(char **name, FILE *filein);
+int arbitration(double number1, double number2, double number3, double *difference);
+void oportunities(char **name, stack **head, FILE *fileout);
 void free_memory_stack(stack *head);
-void list_stack(stack *head);
