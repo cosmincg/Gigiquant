@@ -1,6 +1,7 @@
 #include "list.h"
 #include "numberfile.h"
 #include "stack.h"
+#include "tree.h"
 
 int main(int argc,const char *argv[])
 {
@@ -27,36 +28,36 @@ int main(int argc,const char *argv[])
             double rand_risk = 0.0;
 
 
-            fscanf(filein,"%d",&n);
-            TLinkedList *head = create_list(n,&rand_med,filein);
-            vol = volatility(n,head,rand_med);
-            sharpe = sharpe_ratio(rand_med,rand_risk,vol);
+            fscanf(filein, "%d", &n);
+            TLinkedList *head = create_list(n, &rand_med, filein);
+            vol = volatility(n, head, rand_med);
+            sharpe = sharpe_ratio(rand_med, rand_risk, vol);
 
             //  Trunchiem fiecare valoare
-            rand_med = (int)(rand_med*1000);
+            rand_med = (int)(rand_med * 1000);
             rand_med /= 1000;
 
-            vol = (int)(vol*1000);
+            vol = (int)(vol * 1000);
             vol /= 1000;
 
-            sharpe = (int)(sharpe*1000);
+            sharpe = (int)(sharpe * 1000);
             sharpe /= 1000;
 
 
-            fprintf(fileout,"%.3f\n",rand_med);
-            fprintf(fileout,"%.3f\n",vol);
-            fprintf(fileout,"%.3f\n",sharpe);
+            fprintf(fileout, "%.3f\n", rand_med);
+            fprintf(fileout, "%.3f\n", vol);
+            fprintf(fileout, "%.3f\n", sharpe);
 
             //  Eliberam memoria
             free_memory_list(head);
     }
     else
-        if(numberfile<=10)
+        if(numberfile <= 10)
         {
             char **name = malloc(3 * sizeof(char*));
             if(name == NULL)
             {
-                perror("Memory allocation failed.\n");
+                perror("Memory allocation failed.");
                 exit(EXIT_FAILURE);
             }
 
@@ -66,7 +67,7 @@ int main(int argc,const char *argv[])
 
                 if(name[i] == NULL)
                 {
-                    perror("Memory allocation failed.\n");
+                    perror("Memory allocation failed.");
                     exit(EXIT_FAILURE);
                 }
             }
@@ -74,12 +75,12 @@ int main(int argc,const char *argv[])
 
             stack **head;
 
-            head=create_stack(name,filein);
+            head=create_stack(name, filein);
 
             oportunities(name, head, fileout);
 
             //  Eliberarea memoriei
-            for(int i=0;i<3;i++)
+            for(int i = 0; i < 3; i++)
             {
                 free_memory_stack(head[i]);
                 free(name[i]);
@@ -87,7 +88,34 @@ int main(int argc,const char *argv[])
             free(name);
             free(head);
         }
-    
+        else
+            if(numberfile <= 15)
+            {
+                int n;
+                char *names=malloc(100 * sizeof(char));
+
+                if(names == NULL)
+                {
+                    perror("Memory allocation failed.");
+                    exit(EXIT_FAILURE);
+                }
+
+                fgets(names, 100, filein);
+
+                char **company;
+                company = company_name(names, &n);
+
+                tree *company_stock = read_data(filein, n);
+
+                for(int i = 0; i < n; i++)
+                {
+                    free_bst(company_stock[i].price);
+                    free(company[i]);
+                }
+                free(names);
+                free(company);
+                free(company_stock);
+            }
     //  Inchidem fisierele
     fclose(filein);
     fclose(fileout);

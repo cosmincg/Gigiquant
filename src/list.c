@@ -15,7 +15,7 @@ TLinkedList *create_list(int n,double *rand_med,FILE *filein)
         TLinkedList *newNode = malloc (sizeof(TLinkedList));
         if(newNode == NULL)
         {
-            perror("Memory allocation fault.");
+            perror("Memory allocation failed.");
             exit(EXIT_FAILURE);
         }
 

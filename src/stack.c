@@ -5,7 +5,7 @@ stack **create_stack(char **name, FILE *filein)
     stack **head = malloc(3 * sizeof(stack*));
     if(head == NULL)
     {
-        perror("Memory allocation failed.\n");
+        perror("Memory allocation failed.");
         exit(EXIT_FAILURE);
     }
 
@@ -37,7 +37,7 @@ stack **create_stack(char **name, FILE *filein)
             //  Transformam valoarea numerica in double din char
             char *endp;
             double val;
-            val = strtod(line,&endp);
+            val = strtod(line, &endp);
 
             newNode -> value = val;
                 
@@ -87,10 +87,11 @@ void oportunities(char **name, stack **head,FILE *fileout)
 {
     stack *head1=head[0],*head2=head[1],*head3=head[2];
     int i=1;
+
     while(head1 != NULL && head2 != NULL && head3 != NULL)
     {
         double difference;
-        int position=arbitration(head1 -> value, head2 -> value, head3 -> value,&difference);
+        int position = arbitration(head1 -> value, head2 -> value, head3 -> value,&difference);
 
         if(position)
         {
