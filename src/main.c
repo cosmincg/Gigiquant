@@ -107,15 +107,43 @@ int main(int argc,const char *argv[])
 
                 tree *company_stock = read_data(filein, n);
 
+                for(int i = 0; i < n-1; i++)
+                {
+                    for(int j = i+1; j < n; j++)
+                    {
+                        char *path1 = NULL,*path2 = NULL,*reversed = NULL;
+                        path1 = malloc(50*sizeof(char));
+                        path2 = malloc(50*sizeof(char));
+                        
+                        path1[0] = path2[0] = '\0';
+                        tree_path(company_stock[i].price,path1,0);
+                        tree_path(company_stock[j].price,path2,0);
+
+                        reversed = malloc(strlen(path2)+1);
+                        reversed_path(path2,reversed);
+
+                        if(paths(path1,reversed))
+                        {
+                            fprintf(fileout,"%s-%s %s %s\n",company[i],company[j],path1,path2);
+                        }
+
+                        free(path1);
+                        free(path2);
+                        free(reversed);
+                    }
+                }
+
                 for(int i = 0; i < n; i++)
                 {
                     free_bst(company_stock[i].price);
                     free(company[i]);
                 }
+
                 free(names);
                 free(company);
                 free(company_stock);
             }
+
     //  Inchidem fisierele
     fclose(filein);
     fclose(fileout);

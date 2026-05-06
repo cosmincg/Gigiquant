@@ -1,0 +1,8 @@
+AAPL-AMZN lr rl
+AMZN-META rl lr
+AMZN-TSLA rl lr
+AMZN-NVDA rl lr
+AMZN-ORCL rl lr
+GOOG-INTC ll ll
+GOOG-PYPL ll ll
+INTC-PYPL ll ll

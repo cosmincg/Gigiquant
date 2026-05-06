@@ -1,6 +1,6 @@
 #include "tree.h"
 
-char **company_name(char *names, int *n)
+char **company_name(const char *names, int *n)
 {
     *n = 0;
     char **company = NULL;
@@ -48,24 +48,38 @@ char **company_name(char *names, int *n)
     return company;
 }
 
-root *insert_node(root *node, double val)
+root *allocate_node(root *node,double val)
+{
+    node = malloc(sizeof(root));
+        
+    node -> value = val;
+    node -> left = node -> right = NULL;
+        
+    return node;
+}
+
+root *insert_node(root *node, double val, double last_value)
 {
     if(node == NULL)
     {
-        node = malloc(sizeof(root));
-        
-        node -> value = val;
-        node -> left = node -> right = NULL;
-        
-        return node;
+        return allocate_node(node,val);
     }
-    else
-    {
-        if(node -> value > val)
-            node -> left = insert_node(node -> left, val);
-        else
-            node -> right = insert_node(node -> right, val);
-    }
+
+        root *iter = node;
+        while(iter -> left != NULL || iter -> right != NULL)
+        {
+            if(iter -> left != NULL)
+                iter = iter -> left;
+            else
+                iter = iter -> right;
+        }
+        last_value = iter -> value;
+
+        if(last_value > val)
+            iter -> left = allocate_node(iter->left,val);
+        
+        if(last_value < val)
+            iter -> right = allocate_node(iter->right,val);
 
     return node;
 }
@@ -105,7 +119,7 @@ tree *read_data(FILE *filein, int n)
                 perror("Invalid conversion double.");
                 exit(EXIT_FAILURE);
             }
-            company_stock[id].price = insert_node(company_stock[id].price, val);
+            company_stock[id].price = insert_node(company_stock[id].price, val,0);
 
             id++;
             everyprice = strtok(NULL,", \n\r");
@@ -115,6 +129,46 @@ tree *read_data(FILE *filein, int n)
     free(read_price);
 
     return company_stock;
+}
+
+void tree_path(root *price, char *path, int depth)
+{
+    if(price == NULL)
+        return;
+
+    if(price -> left == NULL && price -> right == NULL)
+        path[depth] = '\0';
+
+    if(price -> left != NULL)
+    {
+        path[depth] = 'l';
+        tree_path(price -> left, path, depth+1);
+    }
+
+    if(price -> right != NULL)
+    {
+        path[depth] = 'r';
+        tree_path(price -> right, path, depth+1);
+    }
+}
+
+void reversed_path(const char *path,char *reversed)
+{
+    int number = strlen(path);
+
+    for(int i = 0; i < number; i++)
+    {
+        reversed[i] = path[number-1-i];
+    }
+
+    reversed[number] = path[number];
+}
+
+int paths(const char *path1, const char *path2)
+{
+    if(strcmp(path1, path2) == 0 )
+        return 1;
+    return 0;
 }
 
 void free_bst(root *node)
