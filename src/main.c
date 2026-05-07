@@ -107,29 +107,45 @@ int main(int argc,const char *argv[])
 
                 tree *company_stock = read_data(filein, n);
 
-                for(int i = 0; i < n-1; i++)
+                int x=0;
+                for(int k = 0; k < 2; k++)
                 {
-                    for(int j = i+1; j < n; j++)
+                    for(int i = 0; i < n-1; i++)
                     {
-                        char *path1 = NULL,*path2 = NULL,*reversed = NULL;
-                        path1 = malloc(50*sizeof(char));
-                        path2 = malloc(50*sizeof(char));
-                        
-                        path1[0] = path2[0] = '\0';
-                        tree_path(company_stock[i].price,path1,0);
-                        tree_path(company_stock[j].price,path2,0);
-
-                        reversed = malloc(strlen(path2)+1);
-                        reversed_path(path2,reversed);
-
-                        if(paths(path1,reversed))
+                        for(int j = i+1; j < n; j++)
                         {
-                            fprintf(fileout,"%s-%s %s %s\n",company[i],company[j],path1,path2);
-                        }
+                            char *path1 = NULL,*path2 = NULL,*reversed = NULL;
+                            path1 = malloc(50*sizeof(char));
+                            path2 = malloc(50*sizeof(char));
+                        
+                            path1[0] = path2[0] = '\0';
+                            tree_path(company_stock[i].price,path1,0);
+                            tree_path(company_stock[j].price,path2,0);
 
-                        free(path1);
-                        free(path2);
-                        free(reversed);
+                            reversed = malloc(strlen(path2)+1);
+                            reversed_path(path2,reversed);
+                            reversed[strlen(reversed)]='\0';
+
+                            if(paths(path1,reversed))
+                            {
+                                if(k == 0)
+                                    x++;
+                                else
+                                {
+                                    fprintf(fileout,"%s-%s",company[i],company[j]);
+                                    if(x>1)
+                                    {
+                                        char space='\n';
+                                        fprintf(fileout,"%c",space);
+                                    }
+                                    x--;
+                                }
+                            }
+
+                            free(path1);
+                            free(path2);
+                            free(reversed);
+                        }
                     }
                 }
 

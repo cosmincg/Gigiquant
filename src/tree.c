@@ -78,7 +78,7 @@ root *insert_node(root *node, double val, double last_value)
         if(last_value > val)
             iter -> left = allocate_node(iter->left,val);
         
-        if(last_value < val)
+        if(last_value <= val)
             iter -> right = allocate_node(iter->right,val);
 
     return node;
@@ -136,9 +136,6 @@ void tree_path(root *price, char *path, int depth)
     if(price == NULL)
         return;
 
-    if(price -> left == NULL && price -> right == NULL)
-        path[depth] = '\0';
-
     if(price -> left != NULL)
     {
         path[depth] = 'l';
@@ -158,10 +155,11 @@ void reversed_path(const char *path,char *reversed)
 
     for(int i = 0; i < number; i++)
     {
-        reversed[i] = path[number-1-i];
+        if(path[i] == 'r')
+            reversed[i] = 'l';
+        else
+            reversed[i] = 'r';
     }
-
-    reversed[number] = path[number];
 }
 
 int paths(const char *path1, const char *path2)
