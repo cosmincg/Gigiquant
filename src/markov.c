@@ -5,7 +5,7 @@ int value_node(double value, double dimension)
     return (int)(value/dimension);
 }
 
-void read_task4(FILE *filein,int *observation, double *dimension, int *days, int *start, int *target, int **values)
+int *read_task4(FILE *filein,int *observation, double *dimension, int *days, int *start, int *target)
 {
     double temp;
     fscanf(filein, "%d", observation);
@@ -17,13 +17,19 @@ void read_task4(FILE *filein,int *observation, double *dimension, int *days, int
     fscanf(filein, "%lf", &temp);
     *target = value_node(temp, *dimension);
 
-    *values = malloc(*observation * sizeof(int));
+    int *values = malloc(*observation * sizeof(int));
+    if(values == NULL)
+    {
+        perror("Memory allocation failed.");
+        exit(EXIT_FAILURE);
+    }
     
     for(int i = 0; i < *observation; i++)
     {
         fscanf(filein, "%lf", &temp);
-        (*values)[i] = value_node(temp, *dimension);
+        values[i] = value_node(temp, *dimension);
     }
+    return values;
 }
 
 int number_nodes(int *values, int observation, int *minimum)
@@ -49,18 +55,40 @@ int return_node(int value, int minimum)
     return value-minimum;
 }
 
-graph *markov_graph(int *values,int observation, int minimum, int **markov)
+graph *markov_graph(int *values,int observation, int minimum, int ***markov, int **prob)
 {
 
     int min;
     int nodes = number_nodes(values,observation,&min);
     graph *markov_nodes = malloc(nodes * sizeof(graph));
+    if(markov_nodes == NULL)
+    {
+        perror("Memory allocation failed.");
+        exit(EXIT_FAILURE);
+    }
+
+    *markov = malloc(nodes * sizeof(int*));
+    if(markov == NULL)
+    {
+        perror("Memory allocation failed.");
+        exit(EXIT_FAILURE);
+    }
+
+    for(int i = 0; i < nodes; i++)
+    {
+        (*markov)[i] = malloc(nodes * sizeof(int));
+        if((*markov)[i] == NULL)
+        {
+            perror("Memory allocation failed.");
+            exit(EXIT_FAILURE);
+        }
+    }
 
     for(int i = 0; i < nodes; i++)
     {
         for(int j = 0; j < nodes; j++)
         {
-            markov[i][j] = 0;
+            (*markov)[i][j] = 0;
         }
     }
 
@@ -69,20 +97,24 @@ graph *markov_graph(int *values,int observation, int minimum, int **markov)
         int curr = return_node(values[i], minimum);
         int next = return_node(values[i+1], minimum);
 
-        markov[curr][next] = 1;
+        (*markov)[curr][next] = 1;
+    }
+
+    *prob = malloc(nodes * sizeof(int));
+    if(prob == NULL)
+    {
+        perror("Memory allocation failed.");
+        exit(EXIT_FAILURE);
     }
 
     for(int i = 0; i < nodes; i++)
     {
         int nr_muchii = 0;
         for(int j = 0; j < nodes; j++)
-            if(markov[i][j])
+            if((*markov)[i][j])
                 nr_muchii++;
 
-        markov_nodes[i].curr_down = nr_muchii;
-        markov_nodes[i].curr_up = 1;
-        markov_nodes[i].prec_down = 0;
-        markov_nodes[i].prec_up = 0;
+        (*prob)[i] = nr_muchii;
     }
 
     return markov_nodes;
@@ -93,7 +125,10 @@ Queue *createQueue()
     Queue * q;
     q = malloc(sizeof(Queue));
     if (q == NULL) 
-        return NULL ;
+    {
+        perror("Memory allocation failed.");
+        exit(EXIT_FAILURE);
+    }
     
     q -> size = 0;
     q -> front = q -> rear = NULL ;
@@ -166,15 +201,14 @@ graph fractie(graph next, int up, int down)
     return next;
 }
 
-graph next_day(graph muchie, graph next)
+graph next_day(graph muchie, graph next, int prob)
 {
     int up = muchie.prec_up;
-    int down = muchie.prec_down * muchie.curr_down;
-    
+    int down = muchie.prec_down * prob;
     return fractie(next,up,down);
 }
 
-void calculate_graph(graph *markov_graph, int **markov, int nodes, Queue *q)
+void calculate_graph(graph *markov_graph, int **markov, int nodes, Queue *q, int *prob)
 {
     for(int i = 0; i < nodes; i++)
     {
@@ -184,17 +218,36 @@ void calculate_graph(graph *markov_graph, int **markov, int nodes, Queue *q)
         markov_graph[i].curr_down = 1;
     }
 
+    while(q -> size > 0)
+        deQueue(q);
+
+    for(int i = 0; i < nodes; i++)
+    {
+        if(markov_graph[i].prec_up != 0)
+            enQueue(q,i);
+    }
+
     int iter = q -> size;
+
     for(int i = 0; i < iter; i++)
     {
         int curr = deQueue(q);
+
         for(int j = 0; j < nodes; j++)
             if(markov[curr][j])
             {
-                enQueue(q,j);
-                markov_graph[j] = next_day(markov_graph[curr],markov_graph[j]);
+                markov_graph[j] = next_day(markov_graph[curr],markov_graph[j],prob[curr]);
             }
     }
 }
 
+void free_queue(Queue *q)
+{
+    while(q -> front != NULL)
+    {
+        Queue *aux = q;
+        q -> front = q -> front -> next; 
+        free(aux);
+    }
+}
 

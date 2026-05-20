@@ -12,8 +12,8 @@
   <line>Command: /home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test /home/cosmincg/Desktop/temaPA/project-data/gigiquant/in/data15.in /home/cosmincg/Desktop/temaPA/project-data/gigiquant/out/data15.out</line>
 </preamble>
 
-<pid>39934</pid>
-<ppid>39910</ppid>
+<pid>77481</pid>
+<ppid>77462</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -32,7 +32,7 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.174 </time>
+  <time>00:00:00:00.065 </time>
 </status>
 
 <error>
@@ -47,7 +47,7 @@
       <fn>strlen</fn>
     </frame>
     <frame>
-      <ip>0x109950</ip>
+      <ip>0x10995F</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
@@ -66,12 +66,12 @@
       <fn>strlen</fn>
     </frame>
     <frame>
-      <ip>0x10A81A</ip>
+      <ip>0x10AB47</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>reversed_path</fn>
     </frame>
     <frame>
-      <ip>0x109973</ip>
+      <ip>0x109982</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
@@ -90,7 +90,7 @@
       <fn>strlen</fn>
     </frame>
     <frame>
-      <ip>0x10997F</ip>
+      <ip>0x10998E</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
@@ -109,12 +109,12 @@
       <fn>strcmp</fn>
     </frame>
     <frame>
-      <ip>0x10A893</ip>
+      <ip>0x10ABC0</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>paths</fn>
     </frame>
     <frame>
-      <ip>0x10999C</ip>
+      <ip>0x1099AB</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
@@ -133,12 +133,12 @@
       <fn>strcmp</fn>
     </frame>
     <frame>
-      <ip>0x10A893</ip>
+      <ip>0x10ABC0</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>paths</fn>
     </frame>
     <frame>
-      <ip>0x10999C</ip>
+      <ip>0x1099AB</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
@@ -152,12 +152,12 @@
   <what>Conditional jump or move depends on uninitialised value(s)</what>
   <stack>
     <frame>
-      <ip>0x10A896</ip>
+      <ip>0x10ABC3</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>paths</fn>
     </frame>
     <frame>
-      <ip>0x10999C</ip>
+      <ip>0x1099AB</ip>
       <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
       <fn>main</fn>
     </frame>
@@ -167,7 +167,7 @@
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:01.453 </time>
+  <time>00:00:00:00.774 </time>
 </status>
 
 <errorcounts>

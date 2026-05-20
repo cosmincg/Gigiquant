@@ -2,6 +2,7 @@
 #include "numberfile.h"
 #include "stack.h"
 #include "tree.h"
+#include "markov.h"
 
 int main(int argc,const char *argv[])
 {
@@ -158,6 +159,53 @@ int main(int argc,const char *argv[])
                 free(names);
                 free(company);
                 free(company_stock);
+            }
+            else if(numberfile <= 20)
+            {
+                int observation,days,start,target, *values = NULL;
+                double dimension;
+
+                values = read_task4(filein,&observation,&dimension,&days,&start,&target);
+
+                int minimum;
+                int nr_nodes = number_nodes(values,observation,&minimum);
+
+                int **markov = NULL, *prob = NULL;
+                graph *probability = NULL;
+                probability = markov_graph(values,observation,minimum,&markov,&prob);
+
+                start = return_node(start,minimum);
+                target = return_node(target,minimum);
+
+                probability[start].curr_up   = 1;
+                probability[start].curr_down = 1;
+
+                Queue *que = NULL;
+                que = createQueue();
+
+                for(int i = 0; i < days; i++)
+                {
+                    calculate_graph(probability,markov,nr_nodes,que,prob);
+                    if(probability[target].prec_up == 0)
+                        fprintf(fileout,"0");
+                    else
+                    {
+                        if(probability[target].prec_down != 1)
+                            fprintf(fileout,"%d/%d",probability[target].prec_up,probability[target].prec_down);
+                        else
+                            fprintf(fileout,"1");
+                    }
+    
+                    if(i < days - 1)
+                        fprintf(fileout,"\n");
+                }
+
+                free_queue(que);
+                free(prob);
+                for(int i = 0; i < nr_nodes; i++)
+                    free(markov[i]);
+                free(markov);
+                free(probability);
             }
 
     //  Inchidem fisierele
