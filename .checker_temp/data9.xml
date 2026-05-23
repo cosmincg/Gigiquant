@@ -12,8 +12,8 @@
   <line>Command: /home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test /home/cosmincg/Desktop/temaPA/project-data/gigiquant/in/data9.in /home/cosmincg/Desktop/temaPA/project-data/gigiquant/out/data9.out</line>
 </preamble>
 
-<pid>77487</pid>
-<ppid>77462</ppid>
+<pid>28638</pid>
+<ppid>28624</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -32,13 +32,13 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.066 </time>
+  <time>00:00:00:00.096 </time>
 </status>
 
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:01.393 </time>
+  <time>00:00:00:00.792 </time>
 </status>
 
 <errorcounts>

@@ -23,14 +23,14 @@ typedef struct
 
 int value_node(double value, double dimension);
 int *read_task4(FILE *filein,int *observation, double *dimension, int *days, int *start, int *target);
-int number_nodes(int *values, int observation, int *minimum);
+int number_nodes(const int *values, int observation, int *minimum);
 int return_node(int value, int minimum);
-graph *markov_graph(int *values,int observation, int minimum, int ***markov, int **prob);
+graph *markov_graph(const int *values,int observation, int minimum, int ***markov, int **prob);
 Queue *createQueue();
 void enQueue(Queue *q, int val);
 int deQueue(Queue *q);
 int cmmdc(int a, int b);
 graph fractie(graph next, int up, int down);
-graph next_day(graph muchie, graph next, int prob);
-void calculate_graph(graph *markov_graph, int **markov, int nodes, Queue *q, int *prob);
+graph next_day(graph muchie, graph next, int prob, int edge);
+void calculate_graph(graph *markov_graph, int **markov, int nodes, Queue *q, const int *prob);
 void free_queue(Queue *q);

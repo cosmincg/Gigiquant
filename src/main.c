@@ -116,10 +116,9 @@ int main(int argc,const char *argv[])
                         for(int j = i+1; j < n; j++)
                         {
                             char *path1 = NULL,*path2 = NULL,*reversed = NULL;
-                            path1 = malloc(50*sizeof(char));
-                            path2 = malloc(50*sizeof(char));
-                        
-                            path1[0] = path2[0] = '\0';
+                            path1 = calloc(50, sizeof(char));
+                            path2 = calloc(50, sizeof(char));;
+                            
                             tree_path(company_stock[i].price,path1,0);
                             tree_path(company_stock[j].price,path2,0);
 
@@ -206,6 +205,7 @@ int main(int argc,const char *argv[])
                     free(markov[i]);
                 free(markov);
                 free(probability);
+                free(values);
             }
 
     //  Inchidem fisierele

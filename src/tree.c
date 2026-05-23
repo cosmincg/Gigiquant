@@ -134,7 +134,10 @@ tree *read_data(FILE *filein, int n)
 void tree_path(root *price, char *path, int depth)
 {
     if(price == NULL)
+    {
+        path[depth] = '\0';
         return;
+    }
 
     if(price -> left != NULL)
     {
@@ -160,6 +163,7 @@ void reversed_path(const char *path,char *reversed)
         else
             reversed[i] = 'r';
     }
+    reversed[number] = '\0';
 }
 
 int paths(const char *path1, const char *path2)

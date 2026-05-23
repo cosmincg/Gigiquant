@@ -32,7 +32,7 @@ int *read_task4(FILE *filein,int *observation, double *dimension, int *days, int
     return values;
 }
 
-int number_nodes(int *values, int observation, int *minimum)
+int number_nodes(const int *values, int observation, int *minimum)
 {
     int max = values[0];
     int min = values[0];
@@ -55,12 +55,17 @@ int return_node(int value, int minimum)
     return value-minimum;
 }
 
-graph *markov_graph(int *values,int observation, int minimum, int ***markov, int **prob)
+graph *markov_graph(const int *values,int observation, int minimum, int ***markov, int **prob)
 {
 
-    int min;
-    int nodes = number_nodes(values,observation,&min);
-    graph *markov_nodes = malloc(nodes * sizeof(graph));
+    int max = values[0];
+    for(int i = 1; i < observation; i++)
+        if(max < values[i])
+            max = values[i];
+    
+    int nodes = max - minimum + 1;
+
+    graph *markov_nodes = calloc(nodes, sizeof(graph));
     if(markov_nodes == NULL)
     {
         perror("Memory allocation failed.");
@@ -68,7 +73,7 @@ graph *markov_graph(int *values,int observation, int minimum, int ***markov, int
     }
 
     *markov = malloc(nodes * sizeof(int*));
-    if(markov == NULL)
+    if(*markov == NULL)
     {
         perror("Memory allocation failed.");
         exit(EXIT_FAILURE);
@@ -97,11 +102,11 @@ graph *markov_graph(int *values,int observation, int minimum, int ***markov, int
         int curr = return_node(values[i], minimum);
         int next = return_node(values[i+1], minimum);
 
-        (*markov)[curr][next] = 1;
+        (*markov)[curr][next]++;
     }
 
     *prob = malloc(nodes * sizeof(int));
-    if(prob == NULL)
+    if(*prob == NULL)
     {
         perror("Memory allocation failed.");
         exit(EXIT_FAILURE);
@@ -111,8 +116,7 @@ graph *markov_graph(int *values,int observation, int minimum, int ***markov, int
     {
         int nr_muchii = 0;
         for(int j = 0; j < nodes; j++)
-            if((*markov)[i][j])
-                nr_muchii++;
+            nr_muchii += (*markov)[i][j];
 
         (*prob)[i] = nr_muchii;
     }
@@ -201,14 +205,14 @@ graph fractie(graph next, int up, int down)
     return next;
 }
 
-graph next_day(graph muchie, graph next, int prob)
+graph next_day(graph muchie, graph next, int prob, int edge)
 {
-    int up = muchie.prec_up;
+    int up = muchie.prec_up * edge;
     int down = muchie.prec_down * prob;
     return fractie(next,up,down);
 }
 
-void calculate_graph(graph *markov_graph, int **markov, int nodes, Queue *q, int *prob)
+void calculate_graph(graph *markov_graph, int **markov, int nodes, Queue *q, const int *prob)
 {
     for(int i = 0; i < nodes; i++)
     {
@@ -232,11 +236,12 @@ void calculate_graph(graph *markov_graph, int **markov, int nodes, Queue *q, int
     for(int i = 0; i < iter; i++)
     {
         int curr = deQueue(q);
+        graph current = markov_graph[curr];
 
         for(int j = 0; j < nodes; j++)
             if(markov[curr][j])
             {
-                markov_graph[j] = next_day(markov_graph[curr],markov_graph[j],prob[curr]);
+                markov_graph[j] = next_day(current,markov_graph[j],prob[curr],markov[curr][j]);
             }
     }
 }
@@ -249,5 +254,6 @@ void free_queue(Queue *q)
         q -> front = q -> front -> next; 
         free(aux);
     }
+    free(q);
 }
 

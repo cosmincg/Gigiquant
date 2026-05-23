@@ -12,8 +12,8 @@
   <line>Command: /home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test /home/cosmincg/Desktop/temaPA/project-data/gigiquant/in/data18.in /home/cosmincg/Desktop/temaPA/project-data/gigiquant/out/data18.out</line>
 </preamble>
 
-<pid>77493</pid>
-<ppid>77462</ppid>
+<pid>28651</pid>
+<ppid>28624</ppid>
 <tool>memcheck</tool>
 
 <args>
@@ -32,113 +32,16 @@
 
 <status>
   <state>RUNNING</state>
-  <time>00:00:00:00.091 </time>
+  <time>00:00:00:00.016 </time>
 </status>
-
-<error>
-  <unique>0x0</unique>
-  <tid>1</tid>
-  <kind>UninitCondition</kind>
-  <what>Conditional jump or move depends on uninitialised value(s)</what>
-  <stack>
-    <frame>
-      <ip>0x10B549</ip>
-      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
-      <fn>calculate_graph</fn>
-    </frame>
-    <frame>
-      <ip>0x109CD1</ip>
-      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
-      <fn>main</fn>
-    </frame>
-  </stack>
-</error>
-
-<error>
-  <unique>0x9</unique>
-  <tid>1</tid>
-  <kind>UninitCondition</kind>
-  <what>Conditional jump or move depends on uninitialised value(s)</what>
-  <stack>
-    <frame>
-      <ip>0x109CF0</ip>
-      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
-      <fn>main</fn>
-    </frame>
-  </stack>
-</error>
 
 
 <status>
   <state>FINISHED</state>
-  <time>00:00:00:01.704 </time>
+  <time>00:00:00:00.654 </time>
 </status>
 
-<error>
-  <unique>0xa</unique>
-  <tid>1</tid>
-  <kind>Leak_DefinitelyLost</kind>
-  <xwhat>
-    <text>24 bytes in 1 blocks are definitely lost in loss record 1 of 2</text>
-    <leakedbytes>24</leakedbytes>
-    <leakedblocks>1</leakedblocks>
-  </xwhat>
-  <stack>
-    <frame>
-      <ip>0x4846828</ip>
-      <obj>/usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
-      <fn>malloc</fn>
-    </frame>
-    <frame>
-      <ip>0x10B1CE</ip>
-      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
-      <fn>createQueue</fn>
-    </frame>
-    <frame>
-      <ip>0x109C94</ip>
-      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
-      <fn>main</fn>
-    </frame>
-  </stack>
-</error>
-
-<error>
-  <unique>0xb</unique>
-  <tid>1</tid>
-  <kind>Leak_DefinitelyLost</kind>
-  <xwhat>
-    <text>40 bytes in 1 blocks are definitely lost in loss record 2 of 2</text>
-    <leakedbytes>40</leakedbytes>
-    <leakedblocks>1</leakedblocks>
-  </xwhat>
-  <stack>
-    <frame>
-      <ip>0x4846828</ip>
-      <obj>/usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so</obj>
-      <fn>malloc</fn>
-    </frame>
-    <frame>
-      <ip>0x10AD5F</ip>
-      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
-      <fn>read_task4</fn>
-    </frame>
-    <frame>
-      <ip>0x109B8E</ip>
-      <obj>/home/cosmincg/Desktop/temaPA/project-data/gigiquant/src/test</obj>
-      <fn>main</fn>
-    </frame>
-  </stack>
-</error>
-
 <errorcounts>
-  <pair>
-    <count>1</count>
-    <unique>0x9</unique>
-  </pair>
-  <pair>
-    <count>9</count>
-    <unique>0x0</unique>
-  </pair>
 </errorcounts>
 
 <suppcounts>
